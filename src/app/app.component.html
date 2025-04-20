@@ -94,38 +94,38 @@
   <div class="modal-dialog" role="document">
      <div class="modal-content">
         <div class="modal-header">
-           <h5 class="modal-title" id="updateEmployeeModalLabel">Edit Employee </h5>
+           <h5 class="modal-title" id="updateEmployeeModalLabel">Edit Student</h5>
            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
            <span aria-hidden="true">&times;</span>
            </button>
         </div>
         <div class="modal-body">
-           <form #editForm="">
+           <form #editForm="ngForm">
               <div class="form-group">
                  <label for="name">Name</label>
-                 <input type="text"  name="name" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Name">
+                 <input type="text" ngModel="{{editedStudent?.name}}"  name="name" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Name">
               </div>
-              <input type="hidden"  name="id" class="form-control" id="id" placeholder="Email">
-              <input type="hidden"  name="userCode" class="form-control" id="userCode" placeholder="Email">
+              <input type="hidden" ngModel="{{editedStudent?.id}}"  name="id" class="form-control" id="id" placeholder="Email">
+
               <div class="form-group">
                  <label for="email">Email Address</label>
-                 <input type="email"  name="email" class="form-control" id="email" placeholder="Email">
+                 <input type="email" ngModel="{{editedStudent?.email}}"  name="email" class="form-control" id="email" placeholder="Email">
               </div>
               <div class="form-group">
-                 <label for="phone">Job title</label>
-                 <input type="text"  name="jobTitle" class="form-control" id="jobTitle" placeholder="Job title">
+                 <label for="phone">Date Of Birth</label>
+                 <input type="text" ngModel="{{editedStudent?.dateOfBirth}}"  name="dateOfBirth" class="form-control" id="dateOfBirth" placeholder="Date of Birth">
               </div>
               <div class="form-group">
                  <label for="phone">Phone</label>
-                 <input type="text"  name="phone" class="form-control" id="phone" name="phone" placeholder="Phone">
+                 <input type="text"  ngModel="{{editedStudent?.phone}}" name="phone" class="form-control" id="phone" name="phone" placeholder="Phone">
               </div>
               <div class="form-group">
-                 <label for="phone">Image URL</label>
-                 <input type="text"  name="imageUrl" class="form-control" id="imageUrl" placeholder="Image URL">
+                 <label for="phone">Gender</label>
+                 <input type="text" ngModel="{{editedStudent?.gender}}" name="gender" class="form-control" id="gender" placeholder="Gender">
               </div>
               <div class="modal-footer">
                  <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Close</button>
-                 <button data-dismiss="modal" class="btn btn-primary" >Save changes</button>
+                 <button (click)="editStudent(editForm.value)" data-dismiss="modal" class="btn btn-primary" >Save changes</button>
               </div>
            </form>
         </div>
@@ -147,7 +147,7 @@
            <p>Are you sure you want to delete employee</p>
            <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-              <button  class="btn btn-danger" data-dismiss="modal">Yes</button>
+              <button (click)="deleteStudent()" class="btn btn-danger" data-dismiss="modal">Yes</button>
            </div>
         </div>
      </div>

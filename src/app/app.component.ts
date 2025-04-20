@@ -13,6 +13,8 @@ import { NgForm } from '@angular/forms';
 export class AppComponent implements OnInit{
 
   public students: Student[] = [];
+  public editedStudent: Student | undefined;
+  public deletedStudent: Student | undefined;
 
   constructor(private studentService: StudentService){}
 
@@ -45,6 +47,33 @@ export class AppComponent implements OnInit{
     )
   }
 
+  public editStudent(student: Student): void{
+    if(this.editedStudent){
+      this.studentService.updateStudent(student).subscribe(
+        (response: Student) => {
+          console.log(response);
+          this.getStudents();
+        },
+        (error: HttpErrorResponse) => {
+          alert(error.message);
+        }
+      )
+    }
+  }
+
+  public deleteStudent(): void{
+    if(this.deletedStudent){
+      this.studentService.deleteStudent(this.deletedStudent.id).subscribe(
+        (response: void) => {
+          this.getStudents();
+        },
+        (error: HttpErrorResponse) => {
+          alert(error.message)
+        }
+      )
+    }
+  }
+
   public onOpenModal(student: Student | null, mode: string): void{
     const container = document.getElementById('main-container');
     const button = document.createElement('button');
@@ -55,9 +84,15 @@ export class AppComponent implements OnInit{
       button.setAttribute('data-target', '#addStudentModal')
     }
     if(mode === 'edit'){
+      if(student){
+        this.editedStudent = student;
+      }
       button.setAttribute('data-target', '#editStudentModal')
     }
     if(mode === 'delete'){
+      if(student){
+        this.deletedStudent = student;
+      }
       button.setAttribute('data-target', '#deleteStudentModal')
     }
     container?.appendChild(button);
