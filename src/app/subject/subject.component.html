@@ -1,0 +1,44 @@
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a href="#" style="color: white">Subject Manager</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navBarColor02" aria-controls="navBarColor02" aria-expanded="false" aria-label="Toggle Navigation">
+        <span class="navbar-toggle-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navBarColor02">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a style="cursor: pointer;" class="nav-link" >Add subject<span class="sr-only">(current)</span></a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input type="search" name="key" id="searchName" class="form-control mr-sm-2" placeholder="Search student..." required>
+        </form>
+    </div>
+</nav>
+<div class="container mt-2" id="main-container">
+    <div class="row">
+        <div *ngFor="let subject of subjects" class="col-md-6 col-xl-3">
+            <div class="card m-b-30">
+                <div class="card-body">
+                    <div class="card-title align-self-center mb-0">
+                        <h5>Subject ID: {{subject.id}}</h5>
+                        <p class="m-0">Name: {{subject?.name}}</p>
+                        <p class="m-0">Credit: {{subject?.credit}}</p>
+                        <p class="m-0">Available Slot: {{subject?.availableSlot}}</p>
+                    </div>
+                </div>
+                <!-- <ul class="list-group list-group-flush">
+                 <li class="list-group-item">Date of birth : {{student?.dateOfBirth}}</li>
+                    <li class="list-group-item"><i class="fa fa-envelope float-right"></i>Email : <a href="#">{{student?.email}}</a></li>
+                    <li class="list-group-item"><i class="fa fa-phone float-right"></i>Phone : {{student?.phone}}</li>
+                </ul> -->
+                <div class="card-body">
+                    <div class="float-right btn-group btn-group-sm">
+                        <a  href="#" class="btn btn-primary tooltips" data-placement="top" data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
+                        <a  href="#" class="btn btn-secondary tooltips" data-placement="top" data-toggle="tooltip" data-original-title="Delete"><i class="fa fa-times"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
