@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Student } from './student';
 import { StudentService } from './student.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -23,6 +24,20 @@ export class AppComponent implements OnInit{
     this.studentService.getStudents().subscribe(
       (response: Student[]) => {
         this.students = response
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    )
+  }
+
+  public addStudent(addForm: NgForm): void{
+    document.getElementById('add-employee-form')?.click();
+    this.studentService.addStudent(addForm.value).subscribe(
+      (response: Student) => {
+        console.log(response);
+        this.getStudents();
+        addForm.reset();
       },
       (error: HttpErrorResponse) => {
         alert(error.message);

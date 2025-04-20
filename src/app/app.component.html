@@ -53,13 +53,13 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
        <div class="modal-header">
-          <h5 class="modal-title" id="addEmployeeModalLabel">Add Employee</h5>
+          <h5 class="modal-title" id="addEmployeeModalLabel">Add Student</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
           </button>
        </div>
        <div class="modal-body">
-          <form #addForm="">
+          <form #addForm="ngForm" (ngSubmit)="addStudent(addForm)">
           <div class="form-group">
              <label for="name">Name</label>
              <input type="text" ngModel name="name" class="form-control" id="name" placeholder="Name" required>
@@ -69,20 +69,20 @@
              <input type="email" ngModel name="email" class="form-control" id="email" placeholder="Email" required>
           </div>
           <div class="form-group">
-             <label for="phone">Job title</label>
-             <input type="text" ngModel name="jobTitle" class="form-control" id="jobTile" placeholder="Job title" required>
+             <label for="dateOfBirth">Date of Birth</label>
+             <input type="text" ngModel name="dateOfBirth" class="form-control" id="dateOfBirth" placeholder="Date of Birth" required>
           </div>
           <div class="form-group">
              <label for="phone">Phone</label>
              <input type="text" ngModel name="phone" class="form-control" id="phone" placeholder="Phone" required>
           </div>
           <div class="form-group">
-             <label for="phone">Image URL</label>
-             <input type="text" ngModel name="imageUrl" class="form-control" id="imageUrl" placeholder="Image URL" required>
+             <label for="phone">Gender</label>
+             <input type="text" ngModel name="gender" class="form-control" id="gender" placeholder="Gender" required>
           </div>
           <div class="modal-footer">
              <button type="button" id="add-employee-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
-             <button type="submit" class="btn btn-primary" >Save changes</button>
+             <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Save changes</button>
           </div>
           </form>
        </div>
