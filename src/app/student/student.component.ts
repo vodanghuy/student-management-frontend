@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Student } from '../student';
 import { StudentService } from '../student.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
+import { SubjectService } from '../subject.service';
+import { Subject } from '../subject';
 
 @Component({
   selector: 'app-student',
@@ -11,14 +13,32 @@ import { NgForm } from '@angular/forms';
   styleUrl: './student.component.css'
 })
 export class StudentComponent implements OnInit{
+
+  @ViewChild('closeModalBtn') closeModalBtn!: ElementRef;
+
   public students: Student[] = [];
+  public subjects: Subject[] = [];
   public editedStudent: Student | undefined;
   public deletedStudent: Student | undefined;
+  public selectedSubject!: string;
+  public selectedStudent!: number;
 
-  constructor(private studentService: StudentService){}
+  constructor(private studentService: StudentService, private subjectService: SubjectService){}
 
   ngOnInit(): void {
       this.getStudents();
+      this.getSubjects();
+  }
+
+  public getSubjects(): void{
+    this.subjectService.getSubjects().subscribe(
+      (response: Subject[]) => {
+        this.subjects = response;
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    )
   }
 
   public getStudents(): void{
@@ -86,6 +106,20 @@ export class StudentComponent implements OnInit{
     }
   }
 
+  public addSubjectToStudent(addSubjectForm: NgForm): void{
+    this.studentService.addSubjectToStudent(parseInt(addSubjectForm.value.students), addSubjectForm.value.subjects.toString()).subscribe(
+      (response: Student) => {
+        console.log(response);
+        this.closeModalBtn.nativeElement.click();
+        alert("Add Subject To Student Successfully")
+      },
+      (error: HttpErrorResponse)=>{
+        console.log(error.message);
+        alert("Subject existed")
+      }
+    )
+  }
+
   public onOpenModal(student: Student | null, mode: string): void{
     const container = document.getElementById('main-container');
     const button = document.createElement('button');
@@ -106,6 +140,9 @@ export class StudentComponent implements OnInit{
         this.deletedStudent = student;
       }
       button.setAttribute('data-target', '#deleteStudentModal')
+    }
+    if(mode === 'addSubject'){
+      button.setAttribute('data-target', '#addSubjectToStudentModal')
     }
     container?.appendChild(button);
     button.click();
